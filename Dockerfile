@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install dependencies
-RUN npm ci
+RUN npm install
 
 # Copy source code
 COPY . .
@@ -24,7 +24,7 @@ RUN addgroup -S app && adduser -S app -G app
 
 # Copy package files and install production dependencies
 COPY --from=builder /app/package*.json ./
-RUN npm ci --omit=dev
+RUN npm install --omit=dev
 
 # Copy built application
 COPY --from=builder /app/build ./build
